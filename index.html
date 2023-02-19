@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R.Editor</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow-y: hidden;
+        }
+
+        #aeiou,
+        #bcdfg {
+            width: auto;
+            border: 1px solid black;
+            height: 50px;
+            margin: 5px;
+        }
+
+        button {
+            margin-top: 5px;
+            margin-left: 5px;
+            width: 100px;
+            height: 40px;
+        }
+
+        button {
+            outline-style: none;
+            border: 0;
+        }
+
+        .comma {
+            background-color: black;
+            border-radius: 5px;
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            color: white;
+        }
+
+
+
+        #result {
+            text-align: center;
+            width: 100%;
+            height: 80%;
+            background-color: black;
+        }
+
+        .octave {
+            display: block;
+            height: 60px;
+        }
+
+        .code {
+            background-color: black;
+            color: chartreuse;
+            border-radius: 5px;
+            border: 1px solid chartreuse;
+        }
+
+        .key {
+            display: inline-block;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+
+        #sheet {
+            text-align: left;
+            margin: 5% 25% 5% 25%;
+            width: 49%;
+            height: 49%;
+            color: white;
+            background-color: black;
+            border: 1px solid gold;
+            border-radius:4rem;
+            opacity: 0.65;
+            padding:2rem;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.9/Tone.js">
+    </script>
+</head>
+
+<body>
+    <center>
+        <h1 style="color:white;">
+            [ 내얘기같아 - 에픽하이 Gb Code ]
+        </h1>
+        <div style="color:white;">
+            가사를 따라 입력하면 소리가 납니다. <br>
+            <br>
+            어려우면 자음만쳐도됩니다! <br>
+        </div>
+    </center>
+    <div id="result">
+        <video src="내얘기같아-에픽하이(헤이즈).mkv" id="video" autoplay>
+
+        </video>
+
+        <div id="sheet">
+            아무키나 눌러보세요.. 음악에 맞춰서 리듬을~
+        </div>
+    </div>
+    <script>
+        const synth = new Tone.Synth().toDestination();
+        function code(key) {
+            const now = Tone.now();
+            synth.triggerAttackRelease(key, '16n');
+        }
+        var seq = [
+            'f#4', 'g#4', 'a#4', 'c#5', 'd#5', 'd#5', 'f5', 'f#4'
+        ];
+        document.addEventListener('keydown', function (e) {
+            var k = e.keyCode % 8;
+            var c = seq[k];
+            code(c);
+            document.getElementById(`sheet`).innerHTML += `${c} `;
+            idx++;
+            idx = idx % 4;
+            if (idx == 0) {
+                document.getElementById(`sheet`).innerHTML += `<br>`;
+            }
+        });
+    </script>
+</body>
+
+</html>
